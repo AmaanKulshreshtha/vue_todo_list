@@ -1,16 +1,34 @@
 <template>
 	<div class="todos">
-		<ul v-bind:key="todo.userId" v-for="todo in todos">
-			<li>{{ todo.title }}</li>
+		<ul>
+			<TodoItem
+				v-bind:key="todo.id"
+				v-for="todo in todos"
+				:todo="todo"
+				v-on:del-todo="$emit('del-todo', todo.id);"
+				v-on:strike-item="$emit('strike-item', todo);"
+			/>
 		</ul>
 	</div>
 </template>
 
 <script>
+import TodoItem from './TodoItem';
+
 export default {
 	name: 'Todos',
-	props: ['todos']
+	components: {
+		TodoItem
+	},
+	props: {
+		todos: Array
+	}
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+ul {
+	// margin: 0;
+	text-align: left;
+}
+</style>
